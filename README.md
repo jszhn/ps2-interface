@@ -3,3 +3,5 @@ PS/2 protocol interface utilities and functions. Built for Terasic's DE1-SoC dev
 * SystemVerilog hardware interface
 * C embedded software interface
 * Nios II interrupt-based interface
+
+Contributions are welcome, as always.

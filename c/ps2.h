@@ -22,6 +22,8 @@ typedef struct PS2_t {
 /*
  * Mouse functions
  */
+// Reads mouse data
+void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4);
 // Initialises mouse with packet commands
 void ps2_init_mouse (void);
 
@@ -30,7 +32,6 @@ void ps2_init_mouse (void);
  */
 // Checks if PS2 FIFO is empty: returns 1 if empty, 0 otherwise
 uint_8 ps2_is_fifo_empty (void);
-
 // Clears PS2 FIFO
 void ps2_clear_fifo (void);
 
