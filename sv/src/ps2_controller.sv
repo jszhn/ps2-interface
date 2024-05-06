@@ -9,19 +9,28 @@ module ps2_controller (
     output wire data_valid,
     output wire data_ready
 );
-    // output instantiation
+    // data output instantiation
     ps2_read_data din (
         .clk(clk),
         .ps2_clock(ps2_clock),
         .ps2_data(ps2_data),
+        .data(data),
         .data_valid(data_valid),
         .data_ready(data_ready)
+    );
+
+    // command input instantiation
+    ps2_command cmd (
+        .ps2_clock(ps2_clock),
+        .ps2_data(ps2_data),
+        .command_send(command_send),
+        .command(command),
     );
 
 endmodule
 
 /*
-    Optional top-level wrapper for the PS/2 controller to better match standard data packet outputs.
+    Optional top-level wrapper for the PS/2 controller to better match standard 3-packet outputs.
 */
 module ps2_mouse_controller (
     input wire clk, // CLOCK50
@@ -36,7 +45,7 @@ module ps2_mouse_controller (
     output wire data_valid,
     output reg data_ready
 );
-    // local parameters
+    // local FSM parameters
     typedef enum logic [1:0] {IDLE, BYTE1, BYTE2, BYTE3} state;
     logic [1:0] curr_state;
     reg [1:0] valid_count;
@@ -57,24 +66,28 @@ module ps2_mouse_controller (
     );
 
     // finite state machine to read each byte packet
-    always @(posedge data_ready) begin
+    always @(posedge controller_data_ready) begin
         case (curr_state)
-            IDLE: begin
+            IDLE: begin // read first byte
                 byte1 = data_out;
                 curr_state = BYTE1;
+                if (data_valid) valid_count++;
             end
-            BYTE1: begin
+            BYTE1: begin // read second byte
                 byte2 = data_out;
                 curr_state = BYTE2;
+                if (data_valid) valid_count++;
             end
-            BYTE2: begin
+            BYTE2: begin // read third byte
                 byte3 = data_out;
-                curr_state = BYTE3;
-            end
-            BYTE3: begin
-                curr_state = IDLE;
-                valid_count = 0;
-                data_ready = 0;
+                if (data_valid) valid_count++;
+
+                if (valid_count == 3)
+                    data_ready = 1;
+                else
+                    data_ready = 0;
+
+                curr_state = IDLE; // back to idle after this
             end
             default: begin
                 curr_state = IDLE;
@@ -82,6 +95,16 @@ module ps2_mouse_controller (
                 data_ready = 0;
             end
         endcase
+    end
+
+    // flip data ready bit for one clock cycle
+    always @(posedge clk) begin
+        if (data_ready) begin
+            if (valid_count == 3) valid_count = 0;
+            else if (valid_count == 0) begin
+                data_ready = ~data_ready;
+            end
+        end
     end
 
 endmodule
