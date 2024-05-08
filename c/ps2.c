@@ -24,6 +24,7 @@ void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4)
 
 void ps2_init_mouse (void) {
     // in general this assumes that hardware problems are not our problem (no ACK check, etc.)
+    mouse_enabled = 1;
 
     // reset mouse
     PS2_b->DATA = PS2_RESET;
