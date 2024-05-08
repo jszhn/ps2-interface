@@ -4,4 +4,6 @@ PS/2 protocol interface utilities and functions. Built for Terasic's DE1-SoC dev
 * C embedded software interface
 * Nios II interrupt-based interface
 
-Contributions are welcome, as always. Work is not done yet! The SV interface isn't finished, nor is the embedded C/Nios code.
+Contributions are welcome, as always.
+
+This is an active work in progress! The SV interface isn't finished, nor is the embedded C/Nios code.
