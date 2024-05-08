@@ -4,6 +4,8 @@ PS2_t *const PS2_b = (PS2_t*) PS2_BASE;
 PS2_t *const PS2_dp = (PS2_t*) PS2_DUAL_PORT; // unused here
 
 uint_8 intellimouse; // for special PS/2 mice with scroll wheels
+uint_8 mouse_enabled = 0;
+uint_32 mouse_x, mouse_y, mouse_z;
 
 // these are mouse parameters set depending on application
 const uint_8 kResolution = 0x02; // 2 counts per mm

@@ -1,6 +1,6 @@
 /*
-    Useful integer typedefs
-*/
+ * Useful integer typedefs
+ */
 #ifndef TYPES_H
 #define TYPES_H
 

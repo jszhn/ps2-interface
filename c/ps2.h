@@ -19,6 +19,11 @@ typedef struct PS2_t {
     vuint_32 CTRL;
 } PS2_t;
 
+// Global vars, for use with interrupt code
+extern PS2_t* const PS2_b;
+extern uint_8 mouse_enabled;
+extern uint_32 mouse_x, mouse_y, mouse_z;
+
 /*
  * Mouse functions
  */
