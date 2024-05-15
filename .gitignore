@@ -1,3 +1,5 @@
 .idea/
 .vscode/
 *.bak
+c/demo/CMakeLists.txt
+c/demo/cmake-build-debug/
