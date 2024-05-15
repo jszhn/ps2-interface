@@ -23,6 +23,7 @@
  * Other standard includes
  */
 #include "ps2.h"
+#include "de1soc_utilities.h"
 
 int main (int argc, char **argv) {
 

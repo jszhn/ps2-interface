@@ -25,9 +25,15 @@ extern uint_8 mouse_enabled;
 extern uint_32 mouse_x, mouse_y, mouse_z;
 
 /*
+ * Keyboard functions
+ */
+void ps2_init_keyboard (void);
+
+/*
  * Mouse functions
  */
-// Reads mouse data
+
+// Reads mouse data via a polling-based approach
 void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4);
 // Initialises mouse with packet commands
 void ps2_init_mouse (void);
@@ -35,6 +41,7 @@ void ps2_init_mouse (void);
 /*
  * Multipurpose functions
  */
+
 // Checks if PS2 FIFO is empty: returns 1 if empty, 0 otherwise
 uint_8 ps2_is_fifo_empty (void);
 // Clears PS2 FIFO

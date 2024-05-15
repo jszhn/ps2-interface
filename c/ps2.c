@@ -11,6 +11,10 @@ uint_32 mouse_x, mouse_y, mouse_z;
 const uint_8 kResolution = 0x02; // 2 counts per mm
 const uint_8 kSampleRate = 40;
 
+void ps2_init_keyboard (void) {
+    mouse_enabled = 0;
+}
+
 void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4) {
     while (PS2_b->RAVAIL < 3); // wait for three bytes
     *byte1 = PS2_b->DATA;
