@@ -2,15 +2,17 @@
 
 void nios_interrupt_handler (void) {
     int ipending = NIOS2_READ_IPENDING();
-    if (ipending & 0b10000000) // PS/2 interrupt service routine
+    if (ipending & 0b10000000) { // PS/2 interrupt service routine
         ps2_interrupt_service_routine();
+
+    }
     // for your own interrupts, add your else if statements here
 }
 
 void ps2_interrupt_service_routine (void) {
     // TODO: finish this
     // at the end of the ISR, check if interrupt is still pending
-    if (PS2_b->CTRL & 0x200) ps2_clear_fifo();
+    if (PS2_b->CTRL & 0x100) ps2_clear_fifo();
 }
 
 inline void ps2_enable_interrupts (void) {

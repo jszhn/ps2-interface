@@ -1,12 +1,13 @@
 /*
  * Derived from Altera's DE1-SoC Nios II documentation
  *      See https://www-ug.eecg.toronto.edu/desl/handouts/DE1-SoC_Computer_Nios.pdf
- *      In general not sure why there's single-run do-while loops here
+ *      - In general not sure why there's single-run do-while loops here
+ *      - Not inlining bc compiler problems
  */
 #ifndef NIOS_CONTROL_REGISTER_MACROS_H
 #define NIOS_CONTROL_REGISTER_MACROS_H
 
-inline int NIOS2_READ_STATUS (void) {
+int NIOS2_READ_STATUS (void) {
     int i;
     do {
         i = __builtin_rdctl(0);
@@ -14,7 +15,7 @@ inline int NIOS2_READ_STATUS (void) {
     return i;
 }
 
-inline int NIOS2_READ_ESTATUS (void) {
+int NIOS2_READ_ESTATUS (void) {
     int i;
     do {
         i = __builtin_rdctl(1);
@@ -22,7 +23,7 @@ inline int NIOS2_READ_ESTATUS (void) {
     return i;
 }
 
-inline int NIOS2_READ_BSTATUS (void) {
+int NIOS2_READ_BSTATUS (void) {
     int i;
     do {
         i = __builtin_rdctl(2);
@@ -30,7 +31,7 @@ inline int NIOS2_READ_BSTATUS (void) {
     return i;
 }
 
-inline int NIOS2_READ_IENABLE (void) {
+int NIOS2_READ_IENABLE (void) {
     int i;
     do {
         i = __builtin_rdctl(3);
@@ -38,7 +39,7 @@ inline int NIOS2_READ_IENABLE (void) {
     return i;
 }
 
-inline int NIOS2_READ_IPENDING (void) {
+int NIOS2_READ_IPENDING (void) {
     int i;
     do {
         i = __builtin_rdctl(4);
@@ -46,7 +47,7 @@ inline int NIOS2_READ_IPENDING (void) {
     return i;
 }
 
-inline int NIOS2_READ_CPUID (void) {
+int NIOS2_READ_CPUID (void) {
     int i;
     do {
         i = __builtin_rdctl(5);
@@ -54,13 +55,13 @@ inline int NIOS2_READ_CPUID (void) {
     return i;
 }
 
-inline void NIOS2_WRITE_STATUS (int src) {
+void NIOS2_WRITE_STATUS (int src) {
     do {
         __builtin_wrctl (0, src);
     } while (0);
 }
 
-inline void NIOS2_WRITE_IENABLE (int src) {
+void NIOS2_WRITE_IENABLE (int src) {
     do {
         __builtin_wrctl (3, src);
     } while (0);

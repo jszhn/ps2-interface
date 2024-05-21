@@ -22,11 +22,21 @@
 /*
  * Other standard includes
  */
-#include "ps2.h"
+#include "../ps2.h"
 #include "de1soc_utilities.h"
 
 int main (int argc, char **argv) {
+    // board set-up
+    ps2_clear_fifo();
+    ps2_init_mouse();
+    ps2_enable_interrupts();
 
+    for (;;) {
+        if (x_abs != x_previous || y_abs != y_previous) { // if new point
+            vga_draw_pixel(x_previous, y_previous, 0x0); // clear previous point
+            vga_draw_pixel(x_abs, y_abs, 0xFFFF); // draw new point
+        }
+    }
 }
 
 // see comment at top of file

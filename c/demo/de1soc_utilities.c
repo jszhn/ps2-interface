@@ -1,14 +1,14 @@
 #include "de1soc_utilities.h"
 
+// local function definitions
+static uint_8 hex_value_from_number (uint_8 write_value);
+
 // local variables
 vuint_32 *const HEX30 = (vuint_32*) HEX3_HEX0_BASE;
 vuint_32 *const HEX54 = (vuint_32*) HEX5_HEX4_BASE;
 PIXEL_t *const PixBuf = (PIXEL_t*) PIXEL_BUF_CTRL_BASE;
 
 uint_32 x_previous = 0, y_previous = 0;
-
-// local function definitions
-static uint_8 hex_value_from_number (uint_8 write_value);
 
 void hex_write_single (uint_8 display_num, uint_32 write_value) {
     // display number ranges from 0-5
@@ -67,9 +67,22 @@ static uint_8 hex_value_from_number (uint_8 write_value) {
     }
 }
 
+/*
+ *  Many graphics functions from this great API by Nick Biancolin
+ *      https://github.com/nbiancolin/DE1SOC-VideoApi
+ *      MIT license
+ */
 void vga_wait_vsync (void) {
     uint_32 status;
     PixBuf->BUFFER = 1; // start the synchronization process; write 1 into front buffer addr register
     status = PixBuf->STATUS; // read status register
     while (status & 0x1) status = PixBuf->STATUS; // polling loop to wait for S bit to go to 0
+}
+
+inline void vga_draw_pixel (int x, int y, uint_16 colour) {
+    PixBuf->BUFFER->pixels[y][x] = colour;
+}
+
+inline uint_16 vga_colour_from_rgb (uint_8 r, uint_8 g, uint_8 b) {
+    return (r << 11) | (g << 5) | b;
 }

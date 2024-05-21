@@ -24,6 +24,8 @@ extern PS2_t* const PS2_b;
 extern uint_8 mouse_enabled;
 extern uint_32 mouse_x, mouse_y, mouse_z;
 
+extern uint_32 x_abs, y_abs, z_abs;
+
 /*
  * Keyboard functions
  */

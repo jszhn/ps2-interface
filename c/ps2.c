@@ -6,13 +6,14 @@ PS2_t *const PS2_dp = (PS2_t*) PS2_DUAL_PORT; // unused here
 uint_8 intellimouse; // for special PS/2 mice with scroll wheels
 uint_8 mouse_enabled = 0;
 uint_32 mouse_x, mouse_y, mouse_z;
+uint_32 x_abs, y_abs, z_abs;
 
 // these are mouse parameters set depending on application
 const uint_8 kResolution = 0x02; // 2 counts per mm
 const uint_8 kSampleRate = 40;
 
 void ps2_init_keyboard (void) {
-    mouse_enabled = 0;
+    // TODO: change scan code set
 }
 
 void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4) {
@@ -27,6 +28,7 @@ void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4)
 }
 
 void ps2_init_mouse (void) {
+    ps2_clear_fifo();
     // in general this assumes that hardware problems are not our problem (no ACK check, etc.)
     mouse_enabled = 1;
 
@@ -63,9 +65,7 @@ void ps2_init_mouse (void) {
 
     // enable data reporting and clear output FIFO
     PS2_b->DATA = PS2_EN;
-    while (!ps2_is_fifo_empty()) {
-        ps2_clear_fifo();
-    }
+    ps2_clear_fifo();
 }
 
 inline uint_8 ps2_is_fifo_empty (void) {
@@ -74,6 +74,6 @@ inline uint_8 ps2_is_fifo_empty (void) {
 
 void ps2_clear_fifo (void) {
     uint_8 input_byte;
-    while (ps2_is_fifo_empty())
+    while (!ps2_is_fifo_empty())
         input_byte = PS2_b->DATA;
 }
