@@ -9,4 +9,5 @@ Contributions are welcome, as always.
 This is an active work in progress! The SV interface isn't finished, nor is the embedded C/Nios code.
 
 ### Credits
-The graphics utilties in the demo are largely from this great [VGA API for the DE1-SoC](https://github.com/nbiancolin/DE1SOC-VideoApi) written by Nick Biancolin. Check it out!
+* Nios II control register access functions are derived and modified from Altera's documentation for the DE1-SoC.
+* Graphics utilities in the demo are from this great [VGA API for the DE1-SoC](https://github.com/nbiancolin/DE1SOC-VideoApi) written by Nick Biancolin. Check it out!
