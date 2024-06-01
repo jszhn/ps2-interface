@@ -1,9 +1,33 @@
+# IDE-specific
 .idea/
 .vscode/
 *.bak
-c/demo/CMakeLists.txt
-c/demo/cmake-build-debug/
+
+# CMake files
+CMakeLists.txt
+cmake-build-debug/
+
+# Compiled files
 *.i
 *.s
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporary files
 *~
+*.bak
+
+# Quartus files
 db/
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
