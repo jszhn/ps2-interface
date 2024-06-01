@@ -1,3 +1,5 @@
+`timescale 1ns / 1ns // `timescale time_unit/time_precision
+
 module ps2_read_data (
     input wire clk,
     inout wire ps2_clock,
@@ -10,7 +12,7 @@ module ps2_read_data (
     // local registers
     reg [3:0] full_count; // 0-11 for full packet sent
     reg parity = 1'b0;
-    reg [10:0] packet;
+    reg [10:0] packet; 
 
     // read from data line
     always @(negedge ps2_clock) begin
@@ -28,14 +30,15 @@ module ps2_read_data (
                 data <= packet[8:1]; // removes start and end bits
                 data_ready <= 1;
 
-                for (int i = 1; i < 9; i++) parity ^= packet[i]; // checks for odd parity
+                // TODO: verify if this is supposed to be 9 or 10
+                for (int i = 1; i < 10; i++) parity ^= packet[i]; // checks for odd parity
                 data_valid <= (packet[0] == ~packet[10]) & parity; // error checking
             end
             else begin // reset variables
                 data_ready <= 0;
                 data_valid <= 0;
                 parity <= 1'b0;
-                count <= 4'hb;
+                full_count <= 4'hb;
             end
         end
     end
