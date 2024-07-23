@@ -14,6 +14,7 @@ const uint_8 kSampleRate = 40;
 
 void ps2_init_keyboard (void) {
     // TODO: change scan code set
+    ps2_clear_fifo();
 }
 
 void ps2_read_mouse (uint_8* byte1, uint_8* byte2, uint_8* byte3, uint_8* byte4) {
