@@ -4,7 +4,6 @@
 *.bak
 
 # CMake files
-CMakeLists.txt
 cmake-build-debug/
 
 # Compiled files
