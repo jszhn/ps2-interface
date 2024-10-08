@@ -1,35 +1,3 @@
-# IDE-specific
+# IDEs
 .idea/
 .vscode/
-*.bak
-
-# CMake files
-cmake-build-debug/
-
-# Compiled files
-*.i
-*.s
-
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
-# Temporary files
-*~
-*.bak
-
-# Quartus files
-db/
-
-# Environments
-.env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
-
-# Unit tests
-.pytest_cache/
