@@ -1,11 +1,12 @@
 # defaults
-SIM ?= modelsim
+SIM ?= questa
 TOPLEVEL_LANG ?= verilog
+HDL_TIMEPRECISION = ns
+HDL_TIMEUNIT = 10
 
-VERILOG_SOURCES += $(PWD)/../../ps2_read.sv
-
+# test-specific variables
+VERILOG_SOURCES += $(PWD)/../../src/ps2_read.sv
 TOPLEVEL = ps2_read_data
 MODULE = test_ps2_read_data
 
-# include cocotb's make rules to take care of the simulator setup
 include $(shell cocotb-config --makefiles)/Makefile.sim

@@ -45,3 +45,4 @@ transcript*
 sc_dpiheader.h
 vsim.dbg
 modelsim.ini
+results.xml
